@@ -4,459 +4,296 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agro Forte, Futuro Sustentável</title>
-    
+    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* --- VARIÁVEIS DO SISTEMA --- */
-        :root {
-            --verde-escuro: #1b4332;
-            --verde-medio: #2d6a4f;
-            --verde-claro: #52b788;
-            --verde-folha: #74c69d;
-            --verde-limao: #b7e4c7;
-            --fundo-card: #40916c;
-            --tamanho-base-fonte: 18px;
-            --brilho-tela: 100%;
-        }
-
-        /* --- CONFIGURAÇÕES GERAIS --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Fredoka', sans-serif;
-        }
-
-        body {
-            background-color: #ffffff;
-            color: #ffffff;
-            font-size: var(--tamanho-base-fonte);
-            filter: brightness(var(--brilho-tela));
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-            transition: background-color 0.3s ease;
-        }
-
-        /* Detalhes abstratos de folhas no fundo */
-        body::before, body::after {
-            content: "";
-            position: fixed;
-            width: 300px;
-            height: 300px;
-            opacity: 0.15;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        body::before {
-            top: -50px;
-            left: -50px;
-            background: radial-gradient(circle, var(--verde-claro) 20%, transparent 60%),
-                        radial-gradient(circle, var(--verde-escuro) 10%, transparent 50%);
-            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-        }
-
-        body::after {
-            bottom: -50px;
-            right: -50px;
-            background: radial-gradient(circle, var(--verde-medio) 30%, transparent 70%),
-                        radial-gradient(circle, var(--verde-folha) 15%, transparent 60%);
-            border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%;
-        }
-
-        /* --- BARRA DE ACESSIBILIDADE FLUTUANTE --- */
-        .barra-acessibilidade {
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            background: var(--verde-escuro);
-            padding: 10px 15px;
-            border-radius: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .barra-acessibilidade span {
-            font-size: 14px;
-            font-weight: bold;
-            color: var(--verde-limao);
-        }
-
-        .btn-acessivel {
-            background: var(--verde-claro);
-            border: none;
-            color: white;
-            padding: 5px 12px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: transform 0.2s, background 0.2s;
-        }
-
-        .btn-acessivel:hover {
-            transform: scale(1.1);
-            background: var(--verde-folha);
-        }
-
-        /* --- TOPO / HEADER --- */
-        header {
-            background: linear-gradient(135deg, var(--verde-escuro), var(--verde-medio));
-            text-align: center;
-            padding: 60px 20px;
-            border-bottom: 8px solid var(--verde-claro);
-            border-radius: 0 0 50px 50px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
-        h1 {
-            font-size: 3rem;
-            text-shadow: 3px 3px 0px var(--verde-escuro), -1px -1px 0px var(--verde-escuro);
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
-
-        header p {
-            color: var(--verde-limao);
-            font-size: 1.3rem;
-        }
-
-        /* --- BOTÃO MODO ESCURO/CLARO NO HEADER --- */
-        .btn-tema-header {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background-color: rgba(255, 255, 255, 0.2);
-            border: 2px solid white;
-            color: white;
-            padding: 8px 16px;
-            font-size: 14px;
-            font-weight: bold;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-        }
-
-        .btn-tema-header:hover {
-            background-color: white;
-            color: var(--verde-escuro);
-            transform: scale(1.05);
-        }
-
-        /* --- CONTEÚDO PRINCIPAL --- */
-        main {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .secao-info {
-            background: var(--fundo-card);
-            border: 4px solid var(--verde-escuro);
-            border-radius: 30px;
-            padding: 30px;
-            margin-bottom: 40px;
-            box-shadow: 0 8px 24px rgba(45, 106, 79, 0.2);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-        }
-
-        h2 {
-            font-size: 2rem;
-            color: var(--verde-limao);
-            border-bottom: 3px dashed var(--verde-folha);
-            padding-bottom: 10px;
-            margin-bottom: 10px;
-        }
-
-        p {
-            line-height: 1.6;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-        }
-
-        /* --- IMAGENS --- */
-        .container-imagens {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .box-imagem {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 5px solid var(--verde-limao);
-            height: 250px;
-        }
-
-        .box-imagem img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .legenda-imagem {
-            position: absolute;
-            bottom: 0;
-            background: rgba(27, 67, 50, 0.85);
-            width: 100%;
-            padding: 10px;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-
-        /* --- GRÁFICO --- */
-        .container-grafico {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin-top: 20px;
-            background: rgba(27, 67, 50, 0.4);
-            padding: 20px;
-            border-radius: 20px;
-            transition: background-color 0.3s;
-        }
-
-        .grafico-pizza {
-            width: 250px;
-            height: 250px;
-            border-radius: 50%;
-            background: conic-gradient(
-                var(--verde-escuro) 0% 45%, 
-                var(--verde-claro) 45% 75%, 
-                var(--verde-limao) 75% 100%
-            );
-            border: 5px solid white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            margin-bottom: 20px;
-        }
-
-        .legenda-grafico {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .item-legenda {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.95rem;
-                text-shadow: none;
-        }
-
-        .cor-legenda {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            border: 2px solid white;
-            flex-shrink: 0;
-        }
-
-        /* --- RODAPÉ --- */
-        footer {
-            text-align: center;
-            padding: 30px;
-            background: var(--verde-escuro);
-            color: var(--verde-limao);
-            margin-top: 50px;
-        }
-
-        /* --- INVERSÃO ESTILÍSTICA: MODO ESCURO --- */
-        body.modo-escuro {
-            background-color: #0b1a14;
-        }
-
-        body.modo-escuro::before, 
-        body.modo-escuro::after {
-            opacity: 0.3;
-        }
-
-        body.modo-escuro .secao-info {
-            background: #ffffff;
-            border-color: var(--verde-claro);
-            color: #1b4332;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-        }
-
-        body.modo-escuro h2 {
-            color: var(--verde-escuro);
-            border-bottom-color: var(--verde-claro);
-        }
-
-        body.modo-escuro p {
-            text-shadow: none;
-        }
-
-        body.modo-escuro .container-grafico {
-            background: rgba(183, 228, 199, 0.2);
-        }
-
-        /* --- RESPONSIVIDADE --- */
-        @media (max-width: 768px) {
-            .container-imagens {
-                grid-template-columns: 1fr;
-            }
-            .barra-acessibilidade {
-                position: static;
-                width: 100%;
-                border-radius: 0;
-                justify-content: center;
-            }
-            .btn-tema-header {
-                position: static;
-                margin-bottom: 15px;
-                display: inline-block;
-            }
-            h1 { font-size: 2.2rem; }
-        }
-    </style>
 </head>
 <body>
 
-    <div class="barra-acessibilidade">
-        <span>Texto:</span>
-        <button class="btn-acessivel" id="btn-aumentar-fonte">A+</button>
-        <button class="btn-acessivel" id="btn-diminuir-fonte">A-</button>
-        
-        <span>Brilho:</span>
-        <button class="btn-acessivel" id="btn-aumentar-brilho">☀️ +</button>
-        <button class="btn-acessivel" id="btn-diminuir-brilho">🌙 -</button>
-    </div>
+    <div class="leaf-detail leaf-left"></div>
+    <div class="leaf-detail leaf-right"></div>
 
-    <header>
-        <button class="btn-tema-header" id="btn-tema">🌙 Modo Escuro</button>
-        <h1>Agro Forte, Futuro Sustentável</h1>
-        <p>A união entre a produtividade do campo e a preservação do amanhã</p>
+    <header class="accessibility-bar">
+        <div class="accessibility-group">
+            <button onclick="alterarFonte(1)" title="Aumentar Letra">A+</button>
+            <button onclick="alterarFonte(-1)" title="Diminuir Letra">A-</button>
+            <button onclick="alterarBrilho(10)" title="Aumentar Brilho">💡+</button>
+            <button onclick="alterarBrilho(-10)" title="Diminuir Brilho">💡-</button>
+            <button onclick="toggleConteudo()" title="Modo Claro/Escuro">🌗 Modo</button>
+        </div>
+        
+        <div class="accessibility-group">
+            <label for="daltonismo-select">Daltonismo:</label>
+            <select id="daltonismo-select" onchange="aplicarDaltonismo(this.value)">
+                <option value="normal">Normal</option>
+                <option value="deuteranopia">Deuteranopia (Verde)</option>
+                <option value="protanopia">Protanopia (Vermelho)</option>
+                <option value="tritanopia">Tritanopia (Azul)</option>
+                <option value="acromatopsia">Acromatopsia (Monocromático)</option>
+            </select>
+        </div>
     </header>
 
-    <main>
-        
-        <section class="secao-info">
-            <h2>A Necessidade da Sustentabilidade no Agronegócio</h2>
-            <p>
-                O agronegócio é o motor que alimenta o mundo, mas para garantir que as próximas gerações continuem colhendo esses frutos, precisamos transformar a nossa relação com a terra. A sustentabilidade no campo não é mais uma opção, e sim uma necessidade urgente para enfrentar as mudanças climáticas e a escassez de recursos.
-            </p>
-            <p>
-                Práticas como o plantio direto, a rotação de culturas, o uso de bioinsumos e a gestão inteligente da água provam que é possível produzir em larga escala e, ao mesmo tempo, proteger a biodiversidade, enriquecer o solo e reduzir a pegada de carbono. O futuro do agro é verde, tecnológico e consciente.
-            </p>
-
-            <div class="container-imagens">
-                <div class="box-imagem">
-                    <img src="https://images.unsplash.com/photo-1560493676-04071c5f467b?auto=format&fit=crop&w=500&q=80" alt="Plantação verdejante jovem">
-                    <div class="legenda-imagem">Tecnologia e Monitoramento de Precision</div>
-                </div>
-                <div class="box-imagem">
-                    <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=500&q=80" alt="Campo cultivado sustentável">
-                    <div class="legenda-imagem">Cultivo Consciente e Preservação do Solo</div>
-                </div>
-            </div>
+    <main class="main-content">
+        <section class="hero">
+            <h1>Agro Forte, Futuro Sustentável 🌿</h1>
+            <p>Conectando a tradição da terra com a inovação do futuro para garantir uma produção limpa, consciente e abundante.</p>
         </section>
 
-        <section class="secao-info">
-            <h2>Fatores Críticos para o Agro Sustentável</h2>
-            <p>
-                Para alcançarmos um cenário ideal no agronegócio moderno, especialistas apontam que os investimentos e esforços devem ser divididos estrategicamente em três pilares principais demonstrados no gráfico abaixo:
-            </p>
-
-            <div class="container-grafico">
-                <div class="grafico-pizza"></div>
-                
-                <div class="legenda-grafico">
-                    <div class="item-legenda">
-                        <div class="cor-legenda" style="background: var(--verde-escuro);"></div>
-                        <p><strong>45% - Gestão de Recursos Hídricos e Solo:</strong> Técnicas de irrigação eficiente e conservação orgânica do solo.</p>
-                    </div>
-                    <div class="item-legenda">
-                        <div class="cor-legenda" style="background: var(--verde-claro);"></div>
-                        <p><strong>30% - Tecnologias Verdes:</strong> Uso de bioinsumos, drones de precisão e fontes de energia renováveis na fazenda.</p>
-                    </div>
-                    <div class="item-legenda">
-                        <div class="cor-legenda" style="background: var(--verde-limao);"></div>
-                        <p><strong>25% - Conformidade Legal e Reflorestamento:</strong> Preservação de Áreas de Proteção Permanente (APPs) e reservas legais.</p>
-                    </div>
+        <section class="cards-container">
+            
+            <div class="card" onclick="alert('Tecnologia e Precisão: Sensores detectam as necessidades exatas de cada planta.')">
+                <img src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=500&auto=format&fit=crop&q=80" alt="Monitoramento de plantação de alta tecnologia">
+                <div class="card-content">
+                    <h3>Tecnologia de Precisão</h3>
+                    <p>O uso de inteligência artificial e satélites otimizando as colheitas e eliminando o desperdício.</p>
                 </div>
             </div>
-        </section>
 
+            <div class="card" onclick="alert('Energia Solar: Fazendas gerando sua própria energia limpa.')">
+                <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=500&auto=format&fit=crop&q=80" alt="Painéis solares no campo">
+                <div class="card-content">
+                    <h3>Energia Limpa</h3>
+                    <p>Fazendas modernas operando de forma autossustentável através da captação solar e biomassa.</p>
+                </div>
+            </div>
+
+            <div class="card" onclick="alert('Manejo Orgânico: Respeito à terra e alimentos muito mais saudáveis.')">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2TUBqctHUKoTPFNcrrZZF3l3iby6V01SHtxxG6fuc7A&s">
+                <div class="card-content">
+                    <h3>Cultivo Consciente</h3>
+                    <p>Práticas biológicas e orgânicas que preservam os nutrientes da terra e protegem os polinizadores.</p>
+                </div>
+            </div>
+
+            <div class="card" onclick="alert('Uso da Água: Irrigação inteligente gota a gota economiza até 70% de recursos hídricos.')">
+                <img src="https://www.aecweb.com.br/revista/materias/gestao-integrada-e-conservacao-de-agua-sao-vitais-para-atingir-o-net-zero-water/23312" alt="Gotículas de água em folhas verdes">
+                <div class="card-content">
+                    <h3>Gestão de Água</h3>
+                    <p>Sistemas hidropônicos e irrigação automatizada que economizam e reutilizam nossos recursos mais preciosos.</p>
+                </div>
+            </div>
+
+            <div class="card" onclick="alert('Florestas Produtivas: Sistemas que unem árvores nativas, pastagens e lavouras no mesmo espaço.')">
+                <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=500&auto=format&fit=crop&q=80" alt="Campos verdes e árvores ao pôr do sol">
+                <div class="card-content">
+                    <h3>Agrofloresta</h3>
+                    <p>A perfeita harmonia entre a produção de alimentos e a regeneração de florestas nativas locais.</p>
+                </div>
+            </div>
+
+            <div class="card" onclick="alert('Logística Verde: Embalagens biodegradáveis e transporte de baixa emissão de carbono.')">
+                <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=500&auto=format&fit=crop&q=80" alt="Caixas de produtos agrícolas frescos colhidos">
+                <div class="card-content">
+                    <h3>Distribuição Sustentável</h3>
+                    <p>Cadeias de suprimento otimizadas que encurtam a distância entre o campo e a sua mesa.</p>
+                </div>
+            </div>
+
+        </section>
     </main>
 
-    <footer>
-        <p>&copy; 2026 - Agro Forte & Sustentável. Todos os direitos reservados de forma consciente.</p>
-    </footer>
-
-    <script>
-        // Variáveis internas para monitoramento do estado global
-        let tamanhoFonteAtual = 18;
-        let brilhoAtual = 100;
-
-        // Mapeamento dos botões capturados via ID
-        const btnAumentarFonte = document.getElementById('btn-aumentar-fonte');
-        const btnDiminuirFonte = document.getElementById('btn-diminuir-fonte');
-        const btnAumentarBrilho = document.getElementById('btn-aumentar-brilho');
-        const btnDiminuirBrilho = document.getElementById('btn-diminuir-brilho');
-        const btnTema = document.getElementById('btn-tema');
-
-        // --- EVENTOS: AJUSTE DO TAMANHO DA FONTE ---
-        btnAumentarFonte.addEventListener('click', () => {
-            if (tamanhoFonteAtual < 26) {
-                tamanhoFonteAtual += 1;
-                atualizarPropriedadeCSS('--tamanho-base-fonte', tamanhoFonteAtual + 'px');
-            }
-        });
-
-        btnDiminuirFonte.addEventListener('click', () => {
-            if (tamanhoFonteAtual > 14) {
-                tamanhoFonteAtual -= 1;
-                atualizarPropriedadeCSS('--tamanho-base-fonte', tamanhoFonteAtual + 'px');
-            }
-        });
-
-        // --- EVENTOS: AJUSTE DE BRILHO DA TELA ---
-        btnAumentarBrilho.addEventListener('click', () => {
-            if (brilhoAtual < 150) {
-                brilhoAtual += 10;
-                atualizarPropriedadeCSS('--brilho-tela', brilhoAtual + '%');
-            }
-        });
-
-        btnDiminuirBrilho.addEventListener('click', () => {
-            if (brilhoAtual > 50) {
-                brilhoAtual -= 10;
-                atualizarPropriedadeCSS('--brilho-tela', brilhoAtual + '%');
-            }
-        });
-
-        // --- EVENTO: ALTERNAR TEMA (EMBUTIDO NO HEADER) ---
-        btnTema.addEventListener('click', () => {
-            document.body.classList.toggle('modo-escuro');
-            
-            // Altera dinamicamente o texto interno do botão baseado na ativação
-            if (document.body.classList.contains('modo-escuro')) {
-                btnTema.textContent = '☀️ Modo Claro';
-            } else {
-                btnTema.textContent = '🌙 Modo Escuro';
-            }
-        });
-
-        // Função interna para injetar novos valores nas variáveis raiz do CSS (:root)
-        function atualizarPropriedadeCSS(propriedade, valor) {
-            document.documentElement.style.setProperty(propriedade, valor);
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
-</html>
+</html>/* Definição de Variáveis */
+:root {
+    --bg-color: #eaf5e4;      /* Fundo verde claro suave */
+    --card-bg: #76a863;       /* Verde folha médio para os cards */
+    --text-color: #ffffff;    /* Letras brancas */
+    --side-detail: #3d6a2f;   /* Cor do detalhe verde lateral */
+    --font-size-base: 16px;
+    --brightness-level: 100%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Fredoka', sans-serif; /* Fonte arredondada */
+    transition: background-color 0.3s, color 0.3s, font-size 0.2s;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: var(--font-size-base);
+    filter: brightness(var(--brightness-level));
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Modo Escuro */
+body.dark-mode {
+    --bg-color: #172b15;
+    --card-bg: #274723;
+    --text-color: #e6f2e2;
+    --side-detail: #568e43;
+}
+
+/* Daltonismo */
+body.deuteranopia { filter: brightness(var(--brightness-level)) grayscale(10%) sepia(20%) hue-rotate(-20deg); }
+body.protanopia { filter: brightness(var(--brightness-level)) grayscale(10%) sepia(30%) hue-rotate(30deg); }
+body.tritanopia { filter: brightness(var(--brightness-level)) grayscale(10%) sepia(20%) hue-rotate(180deg); }
+body.acromatopsia { filter: brightness(var(--brightness-level)) grayscale(100%); }
+
+/* Detalhes Verdes nas Laterais */
+.leaf-detail {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 15px; /* Largura da faixa lateral decorativa */
+    background-color: var(--side-detail);
+    opacity: 0.6;
+    z-index: 10;
+    box-shadow: 0 0 15px rgba(0,0,0,0.05);
+}
+.leaf-left { left: 0; border-radius: 0 10px 10px 0; }
+.leaf-right { right: 0; border-radius: 10px 0 0 10px; }
+
+/* Barra de Acessibilidade */
+.accessibility-bar {
+    background-color: rgba(0, 0, 0, 0.12);
+    padding: 12px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    z-index: 20;
+}
+
+.accessibility-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+button, select {
+    background: #ffffff;
+    color: #3d6a2f;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.06);
+}
+
+button:hover, select:hover {
+    transform: scale(1.05);
+    background: #f4faf2;
+}
+
+/* Área de Conteúdo */
+.main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 40px;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.hero h1 {
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+.hero p {
+    font-size: 1.25rem;
+    max-width: 800px;
+    margin: 0 auto;
+    opacity: 0.9;
+    line-height: 1.4;
+}
+
+/* Grid com mais colunas/cards */
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 35px;
+}
+
+/* Cards Estilizados */
+.card {
+    background-color: var(--card-bg);
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 10px 22px rgba(0,0,0,0.06);
+    cursor: pointer;
+    transform: translateY(0);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+}
+
+.card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 25px;
+}
+
+.card-content h3 {
+    font-size: 1.45rem;
+    margin-bottom: 12px;
+}
+
+.card-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    opacity: 0.95;
+}
+
+/* Responsividade Básica */
+@media(max-width: 600px) {
+    .main-content { padding: 30px 20px; }
+    .hero h1 { font-size: 2rem; }
+    .leaf-detail { width: 8px; }
+}// Controle do Tamanho da Fonte
+let currentFontSize = 16;
+function alterarFonte(action) {
+    currentFontSize += action;
+    if(currentFontSize < 12) currentFontSize = 12;
+    if(currentFontSize > 26) currentFontSize = 26;
+    document.documentElement.style.setProperty('--font-size-base', currentFontSize + 'px');
+}
+
+// Controle de Brilho
+let currentBrightness = 100;
+function alterarBrilho(action) {
+    currentBrightness += action;
+    if(currentBrightness < 40) currentBrightness = 40;
+    if(currentBrightness > 160) currentBrightness = 160;
+    document.documentElement.style.setProperty('--brightness-level', currentBrightness + '%');
+}
+
+// Alternar entre Modo Claro / Escuro
+function toggleConteudo() {
+    document.body.classList.toggle('dark-mode');
+}
+
+// Sistema de Filtros de Daltonismo
+function aplicarDaltonismo(tipo) {
+    // Limpa filtros anteriores
+    document.body.classList.remove('deuteranopia', 'protanopia', 'tritanopia', 'acromatopsia');
+    
+    // Insere o novo filtro ativo
+    if (tipo !== 'normal') {
+        document.body.classList.add(tipo);
+    }
+}
